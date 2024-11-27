@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./styles/panel.css">
+    <script src="config.js"></script>
+</head>
+
+<body>
+    <!-- Login Page -->
+    <div class="login-container" id="loginPage">
+        <div class="login-form">
+            <h2>Login</h2>
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Username" value="admin">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" value="admin">
+            </div>
+            <button class="login-btn" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <!-- Main Page -->
+    <div class="main-container" id="mainPage">
+        <div class="toggle-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="sidebar">
+            <div class="logo">Admin Panel</div>
+            <div class="menu-item" onclick="showPage('home')">
+                <i class="fas fa-home"></i> Home
+            </div>
+            <div class="menu-item" onclick="showPage('users')">
+                <i class="fas fa-users"></i> Users
+            </div>
+            <div class="menu-item" onclick="showPage('tasks')">
+                <i class="fas fa-tasks"></i> Tasks
+            </div>
+            <div class="menu-item" onclick="showPage('settings')">
+                <i class="fas fa-cog"></i> Settings
+            </div>
+            <div class="menu-item" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="homePage" class="page">
+                <div class="cards_raw">
+                    <div class="card">
+                        <i class="fas fa-users fa-3x" id="card"></i>
+                        <div class="card-title">All Users
+                            <div class="card-value">1,205,365</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-user-plus fa-3x" id="card"></i>
+                        <div class="card-title">Online Users
+                            <div class="card-value">352,489</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-user-group fa-3x" id="card"></i>
+                        <div class="card-title">Last Day Users
+                            <div class="card-value">756</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <i class="fas fa-user fa-3x" id="card"></i>
+                        <div class="card-title">Premium Users
+                            <div class="card-value">5,136</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="usersPage" class="page">
+                <h2>Users Page</h2>
+                <p>User management content here</p>
+            </div>
+            <div id="tasksPage" class="page">
+                <div class="panel-container">
+                    <h2 class="section-title">Add New Reward</h2>
+            
+                    <div class="form-group">
+                        <label for="rewardName">Name Reward</label>
+                        <input type="text" id="rewardName" placeholder="Example: Daily Reward">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="rewardValue">Reward Value:</label>
+                        <input type="number" id="rewardValue" placeholder="Example: 100">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="iconSection">Icon</label>
+                        <div id="iconSection" class="icon-section">
+                            <button class="icon-btn" onclick="openIconSelector()">Icon Select</button>
+                            <input type="file" id="iconUpload" class="hidden-input" accept="image/*"
+                                onchange="handleIconUpload(event)" aria-label="Upload Icon">
+                        </div>
+                        <div class="icon-preview">
+                            Icon Selected <span id="selectedIcon"><i class="fas fa-gift"></i></span>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="customFunction">Custom function</label>
+                        <textarea id="customFunction"
+                            placeholder="// Write function here function handleReward() {// Your code}"></textarea>
+                    </div>
+                    <p>
+                        <span>window.open("https://youtube.com/mychannel/myvideo", "blank");</span>
+                    </p>
+                    <button class="submit-btn" onclick="submitReward()">Submit Reward</button>
+                </div>
+            </div>
+            <div id="settingsPage" class="page">
+                <h2>Settings Page</h2>
+                <p>Settings content here</p>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/panel.js"></script>
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === "admin" && password === "admin") {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('mainPage').style.display = 'block';
+            } else {
+                alert('Invalid credentials!');
+            }
+        }
+
+        function logout() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('mainPage').style.display = 'none';
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.content').classList.toggle('active');
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(page + 'Page').classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
